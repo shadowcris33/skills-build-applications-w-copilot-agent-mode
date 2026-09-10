@@ -19,12 +19,12 @@ export function normalizeCollection(payload) {
   return candidates.find(Array.isArray) || []
 }
 
-export async function getResource(resource) {
-  if (!API_BASE_URL) {
+export async function getResource(resource, endpoint = `${API_BASE_URL}/${resource}/`) {
+  if (!endpoint) {
     throw new Error('VITE_CODESPACE_NAME is not configured.')
   }
 
-  const response = await fetch(`${API_BASE_URL}/${resource}/`)
+  const response = await fetch(endpoint)
   if (!response.ok) {
     throw new Error(`Unable to load ${resource} (${response.status}).`)
   }
